@@ -7,13 +7,13 @@ namespace TellDontAsk.UseCase
 {
     public class OrderCreationUseCase
     {
-        private readonly IOrderRepository orderRepository;
-        private readonly IProductCatalog productCatalog;
+        private readonly IOrderRepository _orderRepository;
+        private readonly IProductCatalog _productCatalog;
 
         public OrderCreationUseCase(IOrderRepository orderRepository, IProductCatalog productCatalog)
         {
-            this.orderRepository = orderRepository;
-            this.productCatalog = productCatalog;
+            this._orderRepository = orderRepository;
+            this._productCatalog = productCatalog;
         }
 
         public void Run(SellItemsRequest request)
@@ -29,7 +29,7 @@ namespace TellDontAsk.UseCase
 
             foreach (var itemRequest in request.Requests) 
             {
-                var product = productCatalog.GetByName(itemRequest.ProductName);
+                var product = _productCatalog.GetByName(itemRequest.ProductName);
 
                 if (product == null)
                 {
@@ -56,7 +56,7 @@ namespace TellDontAsk.UseCase
                 }
             }
 
-            orderRepository.Save(order);
+            _orderRepository.Save(order);
         }
     }
 }

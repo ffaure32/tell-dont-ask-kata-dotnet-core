@@ -6,17 +6,17 @@ namespace TellDontAsk.UseCase
 {
     public class OrderShipmentUseCase
     {
-        private readonly IOrderRepository orderRepository;
-        private readonly IShipmentService shipmentService;
+        private readonly IOrderRepository _orderRepository;
+        private readonly IShipmentService _shipmentService;
 
         public OrderShipmentUseCase(IOrderRepository orderRepository, IShipmentService shipmentService)
         {
-            this.orderRepository = orderRepository;
-            this.shipmentService = shipmentService;
+            this._orderRepository = orderRepository;
+            this._shipmentService = shipmentService;
         }
         
         public void Run(OrderShipmentRequest request) {
-            var order = orderRepository.GetById(request.OrderId);
+            var order = _orderRepository.GetById(request.OrderId);
 
             if (order.Status == OrderStatus.Created || order.Status == OrderStatus.Rejected) {
                 throw new OrderCannotBeShippedException();
@@ -26,10 +26,10 @@ namespace TellDontAsk.UseCase
                 throw new OrderCannotBeShippedTwiceException();
             }
 
-            shipmentService.Ship(order);
+            _shipmentService.Ship(order);
 
             order.Status = OrderStatus.Shipped;
-            orderRepository.Save(order);
+            _orderRepository.Save(order);
         }
 
     }

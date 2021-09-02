@@ -5,15 +5,15 @@ namespace TellDontAsk.UseCase
 {
     public class OrderApprovalUseCase
     {
-        private readonly IOrderRepository orderRepository;
+        private readonly IOrderRepository _orderRepository;
 
         public OrderApprovalUseCase(IOrderRepository orderRepository)
         {
-            this.orderRepository = orderRepository;
+            this._orderRepository = orderRepository;
         }
         
         public void Run(OrderApprovalRequest request) {
-            var order = orderRepository.GetById(request.OrderId);
+            var order = _orderRepository.GetById(request.OrderId);
 
             if (order.Status == OrderStatus.Shipped) {
                 throw new ShippedOrdersCannotBeChangedException();
@@ -28,7 +28,7 @@ namespace TellDontAsk.UseCase
             }
 
             order.Status = request.Approved ? OrderStatus.Approved : OrderStatus.Rejected;
-            orderRepository.Save(order);
+            _orderRepository.Save(order);
         }
 
     }

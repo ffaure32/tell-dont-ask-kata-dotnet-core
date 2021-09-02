@@ -7,23 +7,23 @@ namespace TellDontAsk.Tests.Doubles
 {
     public class TestOrderRepository : IOrderRepository
     {
-        private Order insertedOrder;
-        private IList<Order> orders = new List<Order>();
+        private Order _insertedOrder;
+        private readonly IList<Order> _orders = new List<Order>();
         
         public Order GetSavedOrder() {
-            return insertedOrder;
+            return _insertedOrder;
         }
 
         public void Save(Order order) {
-            this.insertedOrder = order;
+            this._insertedOrder = order;
         }
 
         public Order GetById(int orderId) {
-            return orders.First(o => o.Id == orderId);
+            return _orders.First(o => o.Id == orderId);
         }
 
         public void AddOrder(Order order) {
-            this.orders.Add(order);
+            this._orders.Add(order);
         }
 
     }

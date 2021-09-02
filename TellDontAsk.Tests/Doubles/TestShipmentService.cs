@@ -5,15 +5,15 @@ namespace TellDontAsk.Tests.Doubles
 {
     public class TestShipmentService : IShipmentService
     {
-        private Order shippedOrder = null;
+        private Order _shippedOrder;
 
         public Order GetShippedOrder() {
-            return shippedOrder;
+            return _shippedOrder;
         }
 
         public void Ship(Order order)
         {
-            this.shippedOrder = order;
+            this._shippedOrder = order;
         }
     }
 }
