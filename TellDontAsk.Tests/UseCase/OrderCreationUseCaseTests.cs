@@ -15,11 +15,7 @@ namespace TellDontAsk.Tests.UseCase
         public OrderCreationUseCaseTests()
         {
             _orderRepository = new TestOrderRepository();
-            var food = new Category()
-            {
-                Name = "food",
-                TaxPercentage = 10
-            };
+            var food = new Category("food", 10);
             IProductCatalog productCatalog = new InMemoryProductCatalog(
                 new List<Product>
                 {

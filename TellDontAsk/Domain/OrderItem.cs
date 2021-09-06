@@ -1,10 +1,22 @@
-﻿namespace TellDontAsk.Domain
+﻿using System;
+
+namespace TellDontAsk.Domain
 {
     public class OrderItem
     {
-        public Product Product { get; set; }
-        public int Quantity { get; set; }
-        public decimal TaxedAmount { get; set; }
-        public decimal Tax { get; set; }
+        public OrderItem(Product product, int quantity)
+        {
+            Product = product;
+            Quantity = quantity;
+            
+        }
+        public Product Product { get; }
+        public int Quantity { get; }
+
+        public decimal TaxedAmount =>
+            Math.Round(Product.UnitaryTaxedAmount * Quantity, 2, MidpointRounding.AwayFromZero);
+
+        public decimal Tax => Product.UnitaryTax * Quantity;
+
     }
 }

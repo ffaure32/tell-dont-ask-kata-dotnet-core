@@ -18,14 +18,7 @@ namespace TellDontAsk.UseCase
 
         public void Run(SellItemsRequest request)
         {
-            var order = new Order
-            {
-                Status = OrderStatus.Created,
-                Items = new List<OrderItem>(),
-                Currency = "EUR",
-                Total = 0.0m,
-                Tax = 0.0m
-            };
+            var order = Order.Create();
 
             foreach (var itemRequest in request.Requests) 
             {
@@ -37,22 +30,7 @@ namespace TellDontAsk.UseCase
                 }
                 else
                 {
-                    var unitaryTax = Math.Round(product.Price / 100 * product.Category.TaxPercentage, 2, MidpointRounding.AwayFromZero);
-                    var unitaryTaxedAmount = Math.Round(product.Price + unitaryTax, 2, MidpointRounding.AwayFromZero);
-                    var taxedAmount = Math.Round(unitaryTaxedAmount* itemRequest.Quantity, 2, MidpointRounding.AwayFromZero);
-                    var taxAmount = unitaryTax * itemRequest.Quantity;
-
-                    var orderItem = new OrderItem
-                    {
-                        Product = product,
-                        Quantity = itemRequest.Quantity,
-                        Tax = taxAmount,
-                        TaxedAmount = taxedAmount
-                    };
-                    order.Items.Add(orderItem);
-                    
-                    order.Total += taxedAmount;
-                    order.Tax += taxAmount;
+                    order.AddItem(product, itemRequest.Quantity);
                 }
             }
 
