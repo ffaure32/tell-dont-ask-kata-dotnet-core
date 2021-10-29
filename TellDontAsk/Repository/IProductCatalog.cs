@@ -1,9 +1,10 @@
-﻿using TellDontAsk.Domain;
+﻿using System.Threading.Tasks;
+using TellDontAsk.Domain;
 
 namespace TellDontAsk.Repository
 {
     public interface IProductCatalog
     {
-        Product GetByName(string name);
+        Task<Product> GetByNameAsync(string name);
     }
 }
