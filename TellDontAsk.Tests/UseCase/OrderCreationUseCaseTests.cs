@@ -40,7 +40,7 @@ namespace TellDontAsk.Tests.UseCase
         }
 
         [Fact]
-        public void SellMultipleItems()
+        public async void SellMultipleItems()
         {
             var saladRequest = new SellItemRequest()
             {
@@ -56,7 +56,7 @@ namespace TellDontAsk.Tests.UseCase
 
             var request = new SellItemsRequest {Requests = new List<SellItemRequest> {saladRequest, tomatoRequest}};
 
-            _useCase.Run(request);
+            await _useCase.RunAsync(request);
 
             var insertedOrder = _orderRepository.GetSavedOrder();
             Assert.Equal(OrderStatus.Created, insertedOrder.Status);
@@ -83,7 +83,7 @@ namespace TellDontAsk.Tests.UseCase
             var unknownProductRequest = new SellItemRequest {ProductName = "unknown product"};
             request.Requests.Add(unknownProductRequest);
 
-            Assert.Throws<UnknownProductException>(() => _useCase.Run(request));
+            Assert.ThrowsAsync<UnknownProductException>(() => _useCase.RunAsync(request));
         }
     }
 }

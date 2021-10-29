@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using TellDontAsk.Domain;
 using TellDontAsk.Repository;
 
@@ -16,7 +17,7 @@ namespace TellDontAsk.UseCase
             this._productCatalog = productCatalog;
         }
 
-        public void Run(SellItemsRequest request)
+        public async Task RunAsync(SellItemsRequest request)
         {
             var order = new Order
             {
@@ -29,7 +30,7 @@ namespace TellDontAsk.UseCase
 
             foreach (var itemRequest in request.Requests) 
             {
-                var product = _productCatalog.GetByName(itemRequest.ProductName);
+                var product = await _productCatalog.GetByNameAsync(itemRequest.ProductName);
 
                 if (product == null)
                 {
