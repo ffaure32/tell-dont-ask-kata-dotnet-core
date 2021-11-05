@@ -24,7 +24,7 @@ If you can remove some test cases because they don't make sense anymore (eg: you
 ## Part 2: Creating
 
 ### Instructions
-The file [Constants.cs] (TellDontAsk.Tests/Doubles/Constants.cs) defines a Latency to simulate the time to execute the external services.
+The file [Constants.cs](TellDontAsk.Tests/Doubles/Constants.cs) defines a Latency to simulate the time to execute the external services.
 By default, the value of this constant is set to a very low value and as almost no impact on the tests.
 Try to set greater values, for example, 1000 then 2000 and observe the impact on the tests time execution. You should see a linear increase in the time to execute.
 The culprits are the async executions in the [OrderCreationUseCase](TellDontAsk/UseCase/OrderCreationUseCase.cs) and [OrderValidationUseCase](TellDontAsk/UseCase/OrderValidationUseCase.cs)
