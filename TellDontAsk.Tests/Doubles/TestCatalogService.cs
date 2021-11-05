@@ -18,7 +18,7 @@ namespace TellDontAsk.Tests.Doubles
             var validated = true;
             await Task.Run(() =>
             {
-                Thread.Sleep(100);
+                Thread.Sleep(Constants.Latency);
                 if (order.Items.Select(i => i.Product).Any(p => !ReferencedProducts.Contains(p)))
                 {
                     validated = false;

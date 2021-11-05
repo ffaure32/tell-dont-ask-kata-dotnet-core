@@ -17,7 +17,7 @@ namespace TellDontAsk.Tests.Doubles
             var validated = true;
             await Task.Run(() =>
             {
-                Thread.Sleep(100);
+                Thread.Sleep(Constants.Latency);
                 if (order.Items.Select(i => (i.Product, i.Quantity)).Any(s =>
                     !StockByProduct.ContainsKey(s.Product) || StockByProduct[s.Product] < s.Quantity))
                 {

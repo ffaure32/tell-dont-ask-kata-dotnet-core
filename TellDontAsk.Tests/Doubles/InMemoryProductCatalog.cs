@@ -17,7 +17,7 @@ namespace TellDontAsk.Tests.Doubles
 
         public async Task<Product> GetByNameAsync(string name)
         {
-            await Task.Delay(100);
+            await Task.Delay(Constants.Latency);
             return _products.FirstOrDefault(p => p.Name == name);
         }
     }
